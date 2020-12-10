@@ -1,5 +1,6 @@
 <template>
   <div class="seats">
+    <popup v-if="isPopOpen" @seatBooked="bookSeat" />
     <h1>Elad and Roy's dream theatre</h1>
     <ul class="seat-container" v-for="(i, idx) in rowNum" :key="idx">
       {{
@@ -15,18 +16,25 @@
 </template>
 
 <script>
+import popup from './popup.cmp'
 export default {
+  components: {popup},
   data() {
     return {
       rowNum: 8,
       colNum: 8,
+      isPopOpen: false
     };
   },
   methods: {
     clickSeat(ev) {
       const elSeat = ev.target;
       elSeat.classList.add('clicked');
+      this.isPopOpen = true;
     },
+    bookSeat(){
+      this.isPopOpen = false;
+    }
   },
 };
 </script>
