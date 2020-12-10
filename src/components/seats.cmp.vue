@@ -24,7 +24,12 @@ export default {
   },
   methods: {
     clickSeat(i, j) {
-      console.log(this.$refs,this.$el.childNodes[i].toArray(),i, j);
+      var seat=this.$el.childNodes[i].children[j-1].children
+      console.log(seat);
+      // var specific=JSON.parse(JSON.stringify(`mySeat-${i}-${j}`))
+      // console.log( specific);
+      // console.log(this.specific,this.$refs,i, j);
+      // console.log(this);
       // var cell= `mySeat-${i}-${j}`
       // console.log(this.$refs.mySeat);
 
