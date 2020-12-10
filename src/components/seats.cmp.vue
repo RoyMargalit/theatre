@@ -1,38 +1,64 @@
 <template>
-  <div class="seats">
+  <div v-if="theatre.length" class="seats">
     <popup v-if="isPopOpen" @seatBooked="bookSeat" />
     <h1>Elad and Roy's dream theatre</h1>
-    <ul class="seat-container" v-for="(i, idx) in rowNum" :key="idx">
+    <ul class="seat-container" v-for="(i, idx) in theatre.length" :key="idx">
       {{
         i
       }}
-      <ul class="col-container" v-for="(j, idx) in colNum" :key="idx">
-        <li :class="[`seat seat-${i}-${j}`]" :ref="[`mySeat-${i}-${j}`]" @click="clickSeat">
+      <ul class="col-container" v-for="(j, idx) in theatre.length" :key="idx">
+        <li
+          :class="[`seat seat-${i}-${j}`]"
+          :ref="[`mySeat-${i}-${j}`]"
+          @click="clickSeat"
+        >
           {{ j }}
         </li>
       </ul>
     </ul>
+    <!-- <pre>{{theatre}}</pre> -->
   </div>
 </template>
 
 <script>
-import popup from './popup.cmp'
+import popup from "./popup.cmp";
 export default {
-  components: {popup},
+  components: { popup },
   data() {
     return {
-      rowNum: 8,
-      colNum: 8,
-      isPopOpen: false
+      theatre: [],
+      isPopOpen: false,
     };
+  },
+  created() {
+    for (var i = 0; i < 8; i++) {
+      this.theatre[i] = [];
+      for (var j = 0; j < 8; j++) {
+        var seat = {
+          isAvailable: true,
+          isReserved: false,
+          isSelected: false,
+          row: i,
+          col: j,
+        };
+        this.theatre[i][j] = seat;
+      }
+    }
+    console.log(this.theatre);
   },
   methods: {
     clickSeat(ev) {
       const elSeat = ev.target;
-      elSeat.classList.add('clicked');
+      elSeat.classList.add("clicked");
+      console.log(elSeat);
       this.isPopOpen = true;
+      setInterval(this.closePopup, 10000);
     },
-    bookSeat(){
+    bookSeat() {
+      
+      this.isPopOpen = false;
+    },
+    closePopup() {
       this.isPopOpen = false;
     }
   },
