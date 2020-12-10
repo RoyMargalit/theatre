@@ -6,7 +6,7 @@
         i
       }}
       <ul class="col-container" v-for="(j, idx) in colNum" :key="idx">
-        <li :class="[`seat seat-${i}-${j}`]" :ref="[`mySeat-${i}-${j}`]" @click="clickSeat(i, j)">
+        <li :class="[`seat seat-${i}-${j}`]" :ref="[`mySeat-${i}-${j}`]" @click="clickSeat">
           {{ j }}
         </li>
       </ul>
@@ -23,22 +23,11 @@ export default {
     };
   },
   methods: {
-    clickSeat(i, j) {
-      var seat=this.$el.childNodes[i].children[j-1].children
-      console.log(seat);
-      // var specific=JSON.parse(JSON.stringify(`mySeat-${i}-${j}`))
-      // console.log( specific);
-      // console.log(this.specific,this.$refs,i, j);
-      // console.log(this);
-      // var cell= `mySeat-${i}-${j}`
-      // console.log(this.$refs.mySeat);
-
+    clickSeat(ev) {
+      const elSeat = ev.target;
+      elSeat.classList.add('clicked');
     },
   },
-  mounted(){
-    this.$refs.mySeat
-    // console.log(elSeat)
-  }
 };
 </script>
 
